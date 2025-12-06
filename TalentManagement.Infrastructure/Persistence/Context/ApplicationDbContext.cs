@@ -14,6 +14,9 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<Skill> Skills => Set<Skill>();
     public DbSet<MentorSpecialization> MentorSpecializations => Set<MentorSpecialization>();
     public DbSet<Hobby> Hobbies => Set<Hobby>();
+    public DbSet<EmployeeHobby> EmployeeHobbies => Set<EmployeeHobby>();
+    public DbSet<MenteeDesiredSkill> MenteeDesiredSkills => Set<MenteeDesiredSkill>();
+
 
 
 }

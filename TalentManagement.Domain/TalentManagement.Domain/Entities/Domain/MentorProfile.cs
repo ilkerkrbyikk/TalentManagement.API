@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,10 +18,15 @@ namespace TalentManagement.Domain.Entities.Domain
 
 
         //Navigation Properties
-        public ICollection<MenteeProfile> Mentees { get; set; } = new List<MenteeProfile>();
         public ICollection<MentorSpecialization> Specializations { get; set; } = new List<MentorSpecialization>();
-        public ICollection<Mentorship> ActiveMentorships { get; set; } = new List<Mentorship>();
         public ICollection<Mentorship> MentorshipHistory { get; set; } = new List<Mentorship>();
+
+        [NotMapped]
+        public ICollection<Mentorship> ActiveMentorships =>
+                         MentorshipHistory?
+                        .Where(m => m.EndedAt == null)
+                        .ToList() ?? new List<Mentorship>();
+
 
     }
 }

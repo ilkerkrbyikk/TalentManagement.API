@@ -7,20 +7,13 @@ using TalentManagement.Domain.Entities.Base;
 
 namespace TalentManagement.Domain.Entities.Domain
 {
-    public class EmployeeHobby
+    public class EmployeeHobby : BaseEntity
     {
         public long EmployeeId { get; set; }
         public long HobbyId { get; set; }
 
-        public ICollection<EmployeeProfile> Employees { get; set; } = new List<EmployeeProfile>();
-        public ICollection<Hobby> Hobbies { get; set; } = new List<Hobby>();
+        public EmployeeProfile Employee { get; set; } = default!;
+        public Hobby Hobby { get; set; } = default!;
 
-
-        //Base Entity Properties
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public DateTime? UpdatedAt { get; set; }
-        public DateTime? DeletedAt { get; set; }
-        public bool IsDeleted { get; set; } = false;
-        public bool ISActive { get; set; } = true;
     }
 }

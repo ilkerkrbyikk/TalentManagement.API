@@ -15,12 +15,13 @@ namespace TalentManagement.Infrastructure.Persistence.Configurations
         {
             builder.ToTable("MenteeDesiredSkills");
 
-            builder.HasKey(mds => new { mds.MenteeId, mds.SkillId });
+            builder.HasIndex(b => new { b.MenteeProfileId, b.SkillId })
+                   .IsUnique();
 
-            builder.HasOne<MenteeProfile>()
-                   .WithMany(m => m.DesiredSkillsToLearn)
-                   .HasForeignKey(mds => mds.MenteeId)
-                   .OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(mds => mds.MenteeProfile) 
+            .WithMany(m => m.DesiredSkillsToLearn)
+            .HasForeignKey(mds => mds.MenteeProfileId)
+            .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne<Skill>()
                 .WithMany(s => s.MenteesDesiringSkill)

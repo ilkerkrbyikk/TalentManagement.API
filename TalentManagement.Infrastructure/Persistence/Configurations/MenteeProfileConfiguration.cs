@@ -13,21 +13,7 @@ namespace TalentManagement.Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<MenteeProfile> builder)
         {
-            builder.ToTable("MenteeProfiles");
-
-            builder.HasKey(m => m.Id);
-            
-            builder.HasOne(m => m.ActiveMentorship)
-                   .WithOne()
-                   .HasForeignKey<MenteeProfile>(mp => mp.ActiveMentorshipId)
-                   .OnDelete(DeleteBehavior.Cascade);
-
-            builder.HasMany(m => m.MentorshipHistory)
-                    .WithOne()
-                    .HasForeignKey(m => m.MenteeProfileId)
-                    .OnDelete(DeleteBehavior.Cascade);
-
-
+           
         }
     }
 }

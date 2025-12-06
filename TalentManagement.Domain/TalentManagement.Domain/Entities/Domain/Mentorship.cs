@@ -10,9 +10,9 @@ namespace TalentManagement.Domain.Entities.Domain
     public class Mentorship : BaseEntity
     {
         public string MentorshipGoal { get; set; } = default!;
-        public int MeetingFrequencs { get; set; }
+        public int MeetingFrequency { get; set; }
         public DateOnly RequestedAt { get; set; }
-        public DateOnly? StatedAt { get; set; }
+        public DateOnly? StartedAt { get; set; }
         public DateOnly? EndedAt { get; set; }
         public DateOnly PlannedEndDate { get; set; }
         public string? CancellationReason { get; set; }

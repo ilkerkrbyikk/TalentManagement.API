@@ -13,8 +13,9 @@ namespace TalentManagement.Domain.Entities.Domain
         
 
         //Navigation Properties
-        public long ActiveMentorshipId { get; set; }
-        public Mentorship? ActiveMentorship { get; set; } 
+        //public long? ActiveMentorshipId { get; set; }
+        //public Mentorship? ActiveMentorship { get; set; }
+
         public ICollection<Mentorship> MentorshipHistory { get; set; } = new List<Mentorship>();
         public ICollection<MenteeDesiredSkill> DesiredSkillsToLearn { get; set; } = new List<MenteeDesiredSkill>();
     }

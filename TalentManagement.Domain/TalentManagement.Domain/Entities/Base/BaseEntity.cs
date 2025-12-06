@@ -9,5 +9,5 @@ public abstract class BaseEntity
     public DateTime? UpdatedAt { get; set; }
     public DateTime? DeletedAt { get; set; }
     public bool IsDeleted { get; set; } = false;
-    public bool ISActive { get; set; } = true;
+    public bool IsActive { get; set; } = true;
 }

@@ -14,18 +14,22 @@ namespace TalentManagement.Infrastructure.Persistence.Configurations
         public void Configure(EntityTypeBuilder<EmployeeHobby> builder)
         {
             builder.ToTable("EmployeeHobbies");
+            builder.HasKey(eh => eh.Id);
 
-            builder.HasKey(eh => new { eh.EmployeeId, eh.HobbyId }); 
-
-            builder.HasOne<EmployeeProfile>()
+            // Employee ile ilişki
+            builder.HasOne(eh => eh.Employee)
                    .WithMany(e => e.EmployeeHobbies)
                    .HasForeignKey(eh => eh.EmployeeId)
                    .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasOne<Hobby>()
-                .WithMany(h => h.EmployeeHobbies)
-                     .HasForeignKey(eh => eh.HobbyId)
-                     .OnDelete(DeleteBehavior.Cascade);
+            // Hobby ile ilişki
+            builder.HasOne(eh => eh.Hobby)
+                   .WithMany(h => h.EmployeeHobbies)
+                   .HasForeignKey(eh => eh.HobbyId)
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasIndex(eh => new { eh.EmployeeId, eh.HobbyId })
+                   .IsUnique();
 
         }
     }
