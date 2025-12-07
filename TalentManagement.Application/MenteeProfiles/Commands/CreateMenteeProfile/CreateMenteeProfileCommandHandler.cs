@@ -26,24 +26,25 @@ namespace TalentManagement.Application.MenteeProfile.Commands.CreateMenteeProfil
                 return BusinessResult<long>.Fail("Çalışan profili bulunamadı");
 
             //Duplicate mentee profile check
-            var isEmployeeAlreadyMentee = await menteeProfileRepository
+            var isEmployeeAlreadyMenteeProfile = await menteeProfileRepository
                 .AnyAsync(m => m.EmployeeId == request.EmployeeId);
 
-            if (isEmployeeAlreadyMentee)
+            if (isEmployeeAlreadyMenteeProfile)
                 return BusinessResult<long>.Fail("Çalışan zaten bir Mentee profiline sahip");
 
 
             var menteeProfile = new Domain.Entities.Domain.MenteeProfile
             {
-                EmployeeId = 1, // userContext'ten gelecek
+                EmployeeId = request.EmployeeId,
                 DesiredSkillsToLearn = request.SkillIds.Select(skillId => new MenteeDesiredSkill
                 {
-                    SkillId = skillId
-                }).ToList()
+                    SkillId = skillId,
+                    Priority = 1 
+                }).ToList(),
+                
             };
 
-            await unitOfWork.Repository<Domain.Entities.Domain.MenteeProfile>()
-                .AddAsync(menteeProfile);
+            await menteeProfileRepository.AddAsync(menteeProfile);
             await unitOfWork.SaveChangesAsync();
 
             return BusinessResult<long>.Ok(menteeProfile.Id);

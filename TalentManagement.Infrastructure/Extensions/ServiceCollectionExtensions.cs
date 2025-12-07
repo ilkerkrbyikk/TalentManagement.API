@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TalentManagement.Application.Repositories;
 using TalentManagement.Domain.Common.GenericRepository;
 using TalentManagement.Domain.Common.Interfaces;
 using TalentManagement.Infrastructure.Persistence.Common;
 using TalentManagement.Infrastructure.Persistence.Context;
+using TalentManagement.Infrastructure.Persistence.Repositories;
+using TalentManagement.Infrastructure.Seeders;
 
 namespace TalentManagement.Infrastructure.Extensions
 {
@@ -23,6 +26,14 @@ namespace TalentManagement.Infrastructure.Extensions
             //Scopped DI
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IApplicationSeeder, ApplicationSeeder>();
+            services.AddScoped<ISkillSeeder, SkillSeeder>();
+
+
+            //Repository DI
+            services.AddScoped<IEmployeeProfileRepository, EmployeeProfileRepository>();
+            services.AddScoped<IMenteeProfileRepository, MenteeProfileRepository>();
+
         }
     }
 }

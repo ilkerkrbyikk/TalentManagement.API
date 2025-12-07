@@ -14,8 +14,9 @@ namespace TalentManagement.Infrastructure.Persistence.Repositories
 {
     public class EmployeeProfileRepository : GenericRepository<EmployeeProfile>, IEmployeeProfileRepository
     {
-        public EmployeeProfileRepository(ApplicationDbContext context, DbSet<EmployeeProfile> dbSet) : base(context, dbSet)
+        public EmployeeProfileRepository(ApplicationDbContext context) : base(context)
         {
+           
         }
 
         public async Task<bool> IsExistsById(long id)

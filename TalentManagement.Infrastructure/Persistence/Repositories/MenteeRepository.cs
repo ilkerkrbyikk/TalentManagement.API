@@ -14,7 +14,7 @@ namespace TalentManagement.Infrastructure.Persistence.Repositories
 {
     public class MenteeProfileRepository : GenericRepository<MenteeProfile>, IMenteeProfileRepository
     {
-        public MenteeProfileRepository(ApplicationDbContext context, DbSet<MenteeProfile> dbSet) : base(context, dbSet)
+        public MenteeProfileRepository(ApplicationDbContext context) : base(context)
         {
         }
     }

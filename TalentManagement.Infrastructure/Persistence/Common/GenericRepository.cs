@@ -14,9 +14,9 @@ namespace TalentManagement.Infrastructure.Persistence.Common
     public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
         protected readonly ApplicationDbContext _context;
-        protected DbSet<T> _dbSet;
+        protected readonly DbSet<T> _dbSet;
 
-        public GenericRepository(ApplicationDbContext context, DbSet<T> dbSet)
+        public GenericRepository(ApplicationDbContext context)
         {
             _context = context;
             _dbSet = context.Set<T>();
