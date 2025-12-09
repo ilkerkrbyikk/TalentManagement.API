@@ -13,7 +13,6 @@ namespace TalentManagement.Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<MentorProfile> builder)
         {
-
         }
     }
 }

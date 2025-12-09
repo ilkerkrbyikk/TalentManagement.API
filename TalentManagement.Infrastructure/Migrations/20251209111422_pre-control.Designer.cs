@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TalentManagement.Infrastructure.Persistence.Context;
 
@@ -11,9 +12,11 @@ using TalentManagement.Infrastructure.Persistence.Context;
 namespace TalentManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251209111422_pre-control")]
+    partial class precontrol
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -116,6 +119,9 @@ namespace TalentManagement.Infrastructure.Migrations
                     b.Property<long>("DepartmentId")
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("DepartmentId1")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(64)
@@ -154,12 +160,17 @@ namespace TalentManagement.Infrastructure.Migrations
                     b.Property<long>("PositionId")
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("PositionId1")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
+
+                    b.HasIndex("DepartmentId1");
 
                     b.HasIndex("Email")
                         .IsUnique();
@@ -169,6 +180,8 @@ namespace TalentManagement.Infrastructure.Migrations
                     b.HasIndex("MentorProfileId");
 
                     b.HasIndex("PositionId");
+
+                    b.HasIndex("PositionId1");
 
                     b.ToTable("Employees", (string)null);
                 });
@@ -235,6 +248,9 @@ namespace TalentManagement.Infrastructure.Migrations
                     b.Property<long>("SkillId")
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("SkillId1")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -243,6 +259,8 @@ namespace TalentManagement.Infrastructure.Migrations
                     b.HasIndex("MenteeProfileId");
 
                     b.HasIndex("SkillId");
+
+                    b.HasIndex("SkillId1");
 
                     b.ToTable("MenteeDesiredSkills", (string)null);
                 });
@@ -353,17 +371,12 @@ namespace TalentManagement.Infrastructure.Migrations
                     b.Property<int>("ProficiencyLevel")
                         .HasColumnType("int");
 
-                    b.Property<long>("SkillId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("MentorId");
-
-                    b.HasIndex("SkillId");
 
                     b.ToTable("MentorSpecializations");
                 });
@@ -518,10 +531,14 @@ namespace TalentManagement.Infrastructure.Migrations
             modelBuilder.Entity("TalentManagement.Domain.Entities.Domain.EmployeeProfile", b =>
                 {
                     b.HasOne("TalentManagement.Domain.Entities.Domain.Department", "Department")
-                        .WithMany("EmployeeProfiles")
+                        .WithMany()
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("TalentManagement.Domain.Entities.Domain.Department", null)
+                        .WithMany("EmployeeProfiles")
+                        .HasForeignKey("DepartmentId1");
 
                     b.HasOne("TalentManagement.Domain.Entities.Domain.EmployeeProfile", "Manager")
                         .WithMany("Subordinates")
@@ -533,10 +550,14 @@ namespace TalentManagement.Infrastructure.Migrations
                         .HasForeignKey("MentorProfileId");
 
                     b.HasOne("TalentManagement.Domain.Entities.Domain.Position", "Position")
-                        .WithMany("EmployeeProfiles")
+                        .WithMany()
                         .HasForeignKey("PositionId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("TalentManagement.Domain.Entities.Domain.Position", null)
+                        .WithMany("EmployeeProfiles")
+                        .HasForeignKey("PositionId1");
 
                     b.Navigation("Department");
 
@@ -556,10 +577,14 @@ namespace TalentManagement.Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("TalentManagement.Domain.Entities.Domain.Skill", "Skill")
-                        .WithMany("MenteesDesiringSkill")
+                        .WithMany()
                         .HasForeignKey("SkillId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("TalentManagement.Domain.Entities.Domain.Skill", null)
+                        .WithMany("MenteesDesiringSkill")
+                        .HasForeignKey("SkillId1");
 
                     b.Navigation("MenteeProfile");
 
@@ -585,15 +610,7 @@ namespace TalentManagement.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TalentManagement.Domain.Entities.Domain.Skill", "Skill")
-                        .WithMany()
-                        .HasForeignKey("SkillId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Mentor");
-
-                    b.Navigation("Skill");
                 });
 
             modelBuilder.Entity("TalentManagement.Domain.Entities.Domain.Mentorship", b =>

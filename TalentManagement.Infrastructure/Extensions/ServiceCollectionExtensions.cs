@@ -33,6 +33,7 @@ namespace TalentManagement.Infrastructure.Extensions
             //Repository DI
             services.AddScoped<IEmployeeProfileRepository, EmployeeProfileRepository>();
             services.AddScoped<IMenteeProfileRepository, MenteeProfileRepository>();
+            services.AddScoped<IMentorProfileRepository, MentorProfileRepository>();
 
         }
     }

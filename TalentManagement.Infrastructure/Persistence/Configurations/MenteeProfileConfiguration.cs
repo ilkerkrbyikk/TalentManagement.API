@@ -13,7 +13,14 @@ namespace TalentManagement.Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<MenteeProfile> builder)
         {
-           
+            builder.HasOne(mp => mp.EmployeeProfile)
+                 .WithOne(e => e.MenteeProfile)
+                 .HasForeignKey<MenteeProfile>(mp => mp.EmployeeId)
+                 .OnDelete(DeleteBehavior.Restrict);
+
+
+            builder.HasIndex(mp => mp.EmployeeId)
+              .IsUnique();
         }
     }
 }

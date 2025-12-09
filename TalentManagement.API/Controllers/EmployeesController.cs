@@ -8,7 +8,7 @@ namespace TalentManagement.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmployeeController(IMediator _mediator) : ControllerBase
+    public class EmployeesController(IMediator _mediator) : ControllerBase
     {
 
         /// <summary>
@@ -41,8 +41,10 @@ namespace TalentManagement.API.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-                       // Placeholder for CreatedAtAction to reference
+            // Placeholder for CreatedAtAction to reference
             return Ok();
         }
+
+
     }
 }

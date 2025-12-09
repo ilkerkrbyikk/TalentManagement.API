@@ -18,5 +18,9 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<MenteeDesiredSkill> MenteeDesiredSkills => Set<MenteeDesiredSkill>();
 
 
-
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(System.Reflection.Assembly.GetExecutingAssembly());
+        base.OnModelCreating(modelBuilder);
+    }
 }

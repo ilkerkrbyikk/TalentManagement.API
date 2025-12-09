@@ -6,6 +6,7 @@ namespace TalentManagement.Domain.Entities.Domain
     public class MenteeProfile : BaseEntity
     {
         public long EmployeeId { get; set; }
+        public EmployeeProfile EmployeeProfile { get; set; } = default!;
         
 
         //Navigation Properties

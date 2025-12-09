@@ -14,19 +14,23 @@ namespace TalentManagement.Infrastructure.Persistence.Configurations
         public void Configure(EntityTypeBuilder<MenteeDesiredSkill> builder)
         {
             builder.ToTable("MenteeDesiredSkills");
+            builder.HasKey(mds => mds.Id);
 
-            builder.HasIndex(b => new { b.MenteeProfileId, b.SkillId })
-                   .IsUnique();
+            // MenteeProfile ilişkisi
+            builder.Property(mds => mds.MenteeProfileId).IsRequired();
+            builder.HasOne(mds => mds.MenteeProfile)
+                   .WithMany(mp => mp.DesiredSkillsToLearn)
+                   .HasForeignKey(mds => mds.MenteeProfileId)
+                   .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasOne(mds => mds.MenteeProfile) 
-            .WithMany(m => m.DesiredSkillsToLearn)
-            .HasForeignKey(mds => mds.MenteeProfileId)
-            .OnDelete(DeleteBehavior.Cascade);
+            // Skill ilişkisi
+            builder.Property(mds => mds.SkillId).IsRequired();
+            builder.HasOne(mds => mds.Skill)
+                   .WithMany(s => s.MenteesDesiringSkill) 
+                   .HasForeignKey(mds => mds.SkillId)
+                   .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne<Skill>()
-                .WithMany(s => s.MenteesDesiringSkill)
-                     .HasForeignKey(mds => mds.SkillId)
-                     .OnDelete(DeleteBehavior.Cascade);
+            builder.Property(mds => mds.Priority).IsRequired();
         }
     }
 }

@@ -17,5 +17,22 @@ namespace TalentManagement.Infrastructure.Persistence.Repositories
         public MenteeProfileRepository(ApplicationDbContext context) : base(context)
         {
         }
+
+        public async Task<MenteeProfile> GetMenteeProfileById(long id)
+        {
+            var menteeProfile = await _context.MenteeProfiles
+                .Where(m => m.Id == id)
+                .Include(m => m.DesiredSkillsToLearn)
+                    .ThenInclude(ds => ds.Skill)
+                .Include(m => m.EmployeeProfile)
+                .FirstOrDefaultAsync() ?? null;
+
+            if (menteeProfile == null)
+            {
+                return null;
+            }
+
+            return menteeProfile;
+        }
     }
 }

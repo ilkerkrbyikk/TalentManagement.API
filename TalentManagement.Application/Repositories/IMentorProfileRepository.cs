@@ -8,8 +8,8 @@ using TalentManagement.Domain.Entities.Domain;
 
 namespace TalentManagement.Application.Repositories
 {
-    public interface IMenteeProfileRepository : IGenericRepository<TalentManagement.Domain.Entities.Domain.MenteeProfile>
+    public interface IMentorProfileRepository : IGenericRepository<TalentManagement.Domain.Entities.Domain.MentorProfile>
     {
-        Task<TalentManagement.Domain.Entities.Domain.MenteeProfile> GetMenteeProfileById(long id);
+        
     }
 }

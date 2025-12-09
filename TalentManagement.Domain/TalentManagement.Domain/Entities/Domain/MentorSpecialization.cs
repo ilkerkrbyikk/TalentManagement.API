@@ -12,6 +12,8 @@ namespace TalentManagement.Domain.Entities.Domain
         public long MentorId { get; set; }
         public MentorProfile Mentor { get; set; } = default!;
 
+        public long SkillId { get; set; }
+        public Skill Skill { get; set; } 
         public int ProficiencyLevel { get; set; }
         public bool IsVerified { get; set; } = false;
     }
